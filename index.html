@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razorpay Payment Link Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Generate Payment Link</h1>
+
+        <div class="form-group">
+            <label for="freelancerName">Freelancer Name</label>
+            <input type="text" id="freelancerName" placeholder="Enter freelancer's name">
+        </div>
+
+        <div class="form-group">
+            <label for="serviceDetails">Service Details</label>
+            <input type="text" id="serviceDetails" placeholder="Enter service details">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" placeholder="Provide a brief description"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="deadline">Deadline</label>
+            <input type="date" id="deadline">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Customer Email</label>
+            <input type="email" id="email" placeholder="Enter customer email">
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input type="number" id="price" placeholder="Enter price amount">
+        </div>
+
+        <div class="form-group">
+            <label for="currency">Currency</label>
+            <select id="currency">
+                <option value="INR">INR</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+            </select>
+        </div>
+
+        <button id="generateLinkBtn">Generate Payment Link</button>
+        <button id="copyLinkBtn" style="display:none;">Copy to Clipboard</button>
+        <p id="copyMessage" style="display: none;">Link copied to clipboard!</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

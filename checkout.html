@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check-Out</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script> <!-- Razorpay Script -->
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Check-Out</h1>
+
+        <div class="checkout-details">
+            <p><strong>Freelancer Name:</strong> <span id="checkoutFreelancerName"></span></p>
+            <p><strong>Service Details:</strong> <span id="checkoutServiceDetails"></span></p>
+            <p><strong>Description:</strong> <span id="checkoutDescription"></span></p>
+            <p><strong>Deadline:</strong> <span id="checkoutDeadline"></span></p>
+            <p><strong>Email:</strong> <span id="checkoutEmail"></span></p>
+            <p><strong>Price:</strong> <span id="checkoutPrice"></span></p>
+            <p><strong>Currency:</strong> <span id="checkoutCurrency"></span></p>
+            <p><strong>Unique Hash:</strong> <span id="checkoutHash"></span></p>
+        </div>
+
+        <button id="payNowBtn">Pay Now</button>
+        <p id="loadingMessage" style="display: none;">Redirecting to Razorpay for payment...</p>
+    </div>
+
+    <script>
+        // Parse URL Parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        document.getElementById('checkoutFreelancerName').innerText = urlParams.get('freelancer');
+        document.getElementById('checkoutServiceDetails').innerText = urlParams.get('service');
+        document.getElementById('checkoutDescription').innerText = urlParams.get('description');
+        document.getElementById('checkoutDeadline').innerText = urlParams.get('deadline');
+        document.getElementById('checkoutEmail').innerText = urlParams.get('email');
+        document.getElementById('checkoutPrice').innerText = urlParams.get('price');
+        document.getElementById('checkoutCurrency').innerText = urlParams.get('currency');
+        document.getElementById('checkoutHash').innerText = urlParams.get('hash');
+
+        // Razorpay Integration with Real API Key
+        document.getElementById('payNowBtn').addEventListener('click', function() {
+            document.getElementById('loadingMessage').style.display = 'block';
+
+            const options = {
+                key: "rzp_live_Zj7aiv0v2SeH0i", // Replace with your Razorpay key
+                amount: urlParams.get('price') * 100, // Convert to paise
+                currency: urlParams.get('currency'),
+                name: urlParams.get('freelancer'),
+                description: urlParams.get('service'),
+                handler: function(response) {
+                    alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
+                },
+                prefill: {
+                    email: urlParams.get('email')
+                },
+                theme: {
+                    color: "#3399cc"
+                }
+            };
+
+            const rzp = new Razorpay(options);
+            rzp.open();
+            document.getElementById('loadingMessage').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
